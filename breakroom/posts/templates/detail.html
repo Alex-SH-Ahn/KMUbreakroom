@@ -1,0 +1,61 @@
+{% extends "base.html" %} {% load static %} {% block title %}글 상세보기{% endblock title %} {% block extrahead %}
+<link rel="stylesheet" href="{% static 'css/detail.css' %}" />
+{% endblock extrahead %} {% block content %}
+<div class="container">
+  <h1 class="title">공간 상세 정보</h1>
+  <div class="image-container">
+    {% if post.images %}
+    <div class="slider">
+      {% for image in post.images.all %}
+      <img
+        src="{{ image.image.url }}"
+        alt="{{ post.location }}"
+        class="location_img" />
+      {% endfor %}
+    </div>
+    {% else %}
+    <p>사진이 제공되지 않습니다😥</p>
+    {% endif %}
+  </div>
+  <div class="content">
+    <table>
+      <tr>
+        <td>
+          <label for="name">공간 이름</label>
+        </td>
+        <td>{{ post.name }}</td>
+      </tr>
+      <tr>
+        <td>
+          <label for="author">작성자</label>
+        </td>
+        <td>{{ post.author }}</td>
+      </tr>
+      <tr>
+        <td>
+          <label for="location">위치</label>
+        </td>
+        <td>{{ post.location }}</td>
+      </tr>
+      <tr>
+        <td>
+          <label for="availableTime">사용시간</label>
+        </td>
+        <td>{{ post.available_time }}</td>
+      </tr>
+      <tr>
+        <td>
+          <label for="how_to_use">사용방법</label>
+        </td>
+        <td>{{ post.how_to_use }}</td>
+      </tr>
+      <tr>
+        <td>
+          <label for="specification">추가 특징</label>
+        </td>
+        <td>{{ post.specification }}</td>
+      </tr>
+    </table>
+  </div>
+</div>
+{% endblock content %}

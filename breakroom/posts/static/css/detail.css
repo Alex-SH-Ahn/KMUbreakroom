@@ -1,0 +1,71 @@
+@media (max-width: 600px) {
+  .navigation {
+    height: 4vh;
+  }
+  .new-place,
+  .logged,
+  .locations {
+    font-size: 100%;
+    border: 1px solid red;
+  }
+  .search-input {
+    font-size: 2.2vw;
+    width: 25vw;
+  }
+  .search-submit {
+    font-size: 2.2vw;
+    padding: 1vw;
+  }
+  .logo-icon {
+    height: 6vw;
+    width: 6vw;
+    font-size: 2.5vw;
+  }
+  .slider {
+    display: flex;
+    flex-direction: column;
+    width: 60vw;
+    justify-content: center;
+    align-items: center;
+  }
+  .location_img {
+    object-fit: cover;
+    width: 80vw;
+    height: 40vh;
+  }
+}
+label {
+  font-weight: bold;
+  max-width: 100px;
+}
+.container {
+  margin: 1rem 2rem;
+  padding: 1vw;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #eeeeee;
+  border-radius: 2vw;
+}
+.content {
+  font-size: 1.2rem;
+  margin: 1.5rem 0;
+}
+table {
+  text-align: left;
+}
+td {
+  padding: 0.5rem;
+}
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  object-fit: contain;
+}
+img {
+  width: 600px;
+  height: 400px;
+}

@@ -1,0 +1,34 @@
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  border: 1px solid black;
+  text-align: center;
+  font-size: 1.2rem;
+}
+.signup {
+  text-decoration: underline;
+  color: black;
+}
+.login-inputs {
+  margin-left: 0.5rem;
+  border: 1px solid red;
+}
+.login {
+  border: 1px solid blue;
+}
+.login-inputs input {
+  width: 200px;
+  height: 25px;
+  font-size: 1.2rem;
+}
+.remember {
+  margin-top: 10px;
+}
+.submit {
+  margin-top: 15px;
+  font-size: 1.5rem;
+  width: 100px;
+  height: 40px;
+}

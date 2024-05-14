@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %} {% endblock title %}</title>
+    {% load static %}
+    <link rel="icon" href="{% static 'img/MapPin.svg'%}">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&family=Sriracha&display=swap" rel="stylesheet">
+    <style>
+      body, .locations, .search input[placeholder="건물명으로 검색하세요"] {
+        font-family: "Gowun Batang", serif;
+        font-style: normal;
+      }
+      .navigation {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1vw 0;
+        background-color: #cccccc;
+        margin: 0;
+        height: 6vh;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-left: 1vw;
+      }
+      .logo-icon {
+        height: 3.5vw;
+        width: 3.5vw;
+        font-size: 2vw;
+      }
+      #logo-name {
+        font-size: 2vw;
+        margin: 0;
+      }
+      a {
+        text-decoration: none;
+        color: black;
+      }
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .new-place {
+        font-weight: normal;
+        font-size: 1.2vw;
+        margin-right: 3.2vw;
+      }
+      .search-input {
+        width: 15vw;
+      }
+      .search-input,
+      .search-submit {
+        font-size: 1.2vw;
+        padding: 1vw;
+        border-radius: 0.8vw;
+        border: none;
+      }
+      .locations {
+        outline: none;
+        border: none;
+        text-align: center;
+        appearance: none; /* Remove default arrow */
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background: url("{% static 'img/ChevronDown.svg' %}") no-repeat right center;
+        background-size: 2vw 2vw;
+        width: 11vw;
+        padding-right: 2.4vw;
+        font-size: 1.2vw;
+        margin: 0 3.2vw;
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+      }
+      .locations:active, .locations:focus, .new-place:active, .new-place:focus {
+        font-weight: 600;
+      }
+      .logged {
+        padding: 0 2vw;
+        font-size: 1.2vw;
+      }
+      @media(max-width: 600px) {
+        .navigation {
+          height: 4vh;
+        }
+        .new-place, .logged, .locations {
+          font-size: 100%;
+        }
+        .locations {
+          width: 15vw;
+        }
+        .search-input {
+          font-size: 2.2vw;
+          width: 25vw;
+        }
+        .search-submit {
+          font-size: 2.2vw;
+          padding: 1vw;
+        }
+        .logo-icon {
+          height: 6vw;
+          width: 6vw;
+          font-size: 2.5vw;
+        }
+      }
+    </style>
+    {% block extrahead %} {% endblock extrahead %}
+  </head>
+  <body>
+    <div class="navigation">
+      <a href="{% url 'home' %}">
+        <header> <!-- 로고 부분 -->
+          <h1 class="logo-icon">
+            <svg data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"></path>
+            </svg>
+          </h1>
+          <h1 id="logo-name">국민대 휴게시설 모아보기</h1>
+        </header>
+      </a>
+      
+      <nav> <!-- 네비게이션 부분 -->
+        <form method="get" action="{% url 'home' %}">
+          <select class="locations" name="location" onchange="this.form.submit()">
+            <option value="" id="selection">건물 별로 보기</option>
+            {% for location in locations %}
+                <option value="{{ location.0 }}"
+                        {% if selected_location == location.0 %}selected{% endif %}>
+                    {{ location.1 }}
+                </option>
+            {% endfor %}
+          </select>
+        </form>
+        <div class="new-place">
+          {% if user.is_authenticated %}
+            <p><a href="{% url 'new' %}" id="new-place-auth">새로운 장소 추가하기</a></p>
+          {% else %}
+            <p><a href="{% url 'login' %}" id="new-place-not-auth">새로운 장소 추가하기</a></p>
+          {% endif %}
+        </div>
+        <div class="search">
+          <form method="get" action="{% url 'home' %}" class="search-form">
+            <input type="text" name="location" placeholder="건물명으로 검색하세요" value="{{ location }}" class="search-input" id="search-input">
+            <button type="submit" class="search-submit"><i class="fas fa-search"></i></button>
+          </form>
+        </div>
+        <div class="logged">
+          {% if user.is_authenticated %}
+            <p><a href="{% url 'logout' %}">로그아웃</a></p>
+          {% else %}
+            <p><a href="{% url 'login' %}">로그인</a></p>
+          {% endif %}
+        </div>
+        
+      </nav>
+    </div>
+    {% block content %} {% endblock content %}
+    <script>
+      let searchInput = document.getElementById('search-input');
+      searchInput.addEventListener('focus', () => {
+        searchInput.placeholder = '';
+      });
+      searchInput.addEventListener('blur', () => {
+        searchInput.placeholder = '건물명으로 검색하세요';
+      });
+      let logoName = document.getElementById('logo-name');
+      let selection = document.getElementById('selection');
+      let newPlaceAuth = document.getElementById('new-place-auth');
+      let newPlaceNotAuth = document.getElementById('new-place-not-auth');
+      window.addEventListener('resize', () => {
+        if (window.innerWidth < 600) {
+          if (logoName) logoName.innerText = "";
+          selection.innerText = "건물명";
+          if (newPlaceAuth) newPlaceAuth.innerText = "장소 추가";
+          // 로그인 되어있지 않으면 elemnet가 null을 반환하므로 typeError가 발생함
+          if (newPlaceNotAuth) newPlaceNotAuth.innerText = "장소 추가";
+        } else {
+          if (logoName) logoName.innerText = "국민대 휴게시설 모아보기";
+          selection.innerText = "건물 별로 보기";
+          if (newPlaceAuth) newPlaceAuth.innerText = "새로운 장소 추가하기";
+          if (newPlaceNotAuth) newPlaceNotAuth.innerText = "새로운 장소 추가하기";
+        }
+      });
+
+      window.dispatchEvent(new Event('resize'));
+      // 페이지가 로드할 때 resize 이벤트를 발생시켜서 초기화
+    </script>
+  </body>
+</html>

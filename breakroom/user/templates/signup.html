@@ -1,0 +1,94 @@
+{% extends "base.html" %} {% load static %} {% block title %}회원가입{% endblock title %} {% block extrahead %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/signup.css' %}" />
+{% endblock extrahead %} {% block content %}
+<div class="signup">
+  <h1>회원가입</h1>
+  <form method="POST" enctype="multipart/form-data" class="inputs">
+    {% csrf_token %}
+    <table>
+      <tr>
+        <td>
+          <label for="username">아이디 *</label>
+        </td>
+        <td>
+          <input type="text" id="username" name="username" required />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="password1">비밀번호 *</label>
+        </td>
+        <td>
+          <input type="password" id="password1" name="password1" required />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="password2">비밀번호 확인 *</label>
+        </td>
+        <td>
+          <input type="password" id="password2" name="password2" required />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="nickname">닉네임 *</label>
+        </td>
+        <td>
+          <input
+            type="text"
+            id="nickname"
+            name="nickname"
+            placeholder="게시물 작성자로 보일 이름입니다."
+            required />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="email">이메일 *</label>
+        </td>
+        <td>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="국민대학교 이메일을 입력해주세요."
+            required />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="student-number">학번</label>
+        </td>
+        <td>
+          <input type="text" id="student-number" name="student-number" />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="major">학과</label>
+        </td>
+        <td>
+          <input type="text" id="major" name="major" />
+        </td>
+      </tr>
+    </table>
+    <p class="info">*표시는 필수입니다.</p>
+    {% comment %} {% if error == "The 'username' attribute must be
+    set" or error == "The 'user' attribute must be set" or error == "The
+    'password1' attribute must be set" or error == "username must be a string,
+    not NoneType" or error == "The 'password2' attribute must be set" %}
+    <p style="color: red" class="e">비밀번호나 아이디를 입력해주세요.</p>
+    {% endif %} {% endcomment %}
+    <input type="submit" class="btn btn-primary" value="회원가입하기" />
+    <input type="hidden" id="error_message" value="{{ error }}">
+  </form>
+  {% if error_message == "UNIQUE constraint failed: auth_user.username" %}
+  <p style="color: red" class="e">{{error_message}}</p>
+  {% endif %}
+</div>
+<script
+  type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="text/javascript" src="{% static 'js/signup.js' %}"></script>
+{% endblock %}

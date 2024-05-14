@@ -1,0 +1,37 @@
+{% extends "base.html" %} {% load static %} {% block title %}국민대 휴게시설 모아보기{% endblock title %} {% block extrahead %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}" />
+{% endblock extrahead %} {% block content %}
+<main class="posts">
+  <!-- 메인 페이지 부분 -->
+  {% for post in posts %}
+  <a href="{% url 'detail' post.id %}">
+    <div class="post">
+      <div class="image-container">
+        {% with post.images.all.first as image %}
+          {% if image %}
+          <div class="image">
+            <img
+              src="{{ image.image.url }}"
+              alt="{{ post.location }}"
+              class="location_img" />
+          </div>
+          {% else %}
+          <p>사진이 제공되지 않습니다😥</p>
+          {% endif %}
+        {% endwith %}
+      </div>
+      <div class="content">
+        <h2 class="title"><label>공간 이름</label>{{ post.name }}</h2>
+        <p class="location_name"><label>위치</label>{{ post.location }}</h2>
+        <p class="author" id="author"><label>작성자</label>{{ post.author }}</p>
+        <p class="availableTime" id="availableTime"><label>사용시간</label>{{ post.available_time }}</p>
+        <p class="how_to_use" id="how_to_use"><label>사용방법</label>{{ post.how_to_use }}</p>
+        <p class="specification" id="specification"><label>추가 특징</label>{{ post.specification }}</p>
+      </div>
+    </div>
+  </a>
+  {% empty %}
+  <h1 class="empty">게시글이 없어요! 새 게시글을 작성해주세요 😄</h1>
+  {% endfor %}
+</main>
+{% endblock %}

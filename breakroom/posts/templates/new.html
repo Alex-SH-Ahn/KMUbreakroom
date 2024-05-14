@@ -1,0 +1,87 @@
+{% extends "base.html" %} {% load static %} {% block title %}새 글 작성하기{% endblock title %} {% block extrahead %}
+<link rel="stylesheet" href="{% static 'css/new.css' %}" />
+{% endblock extrahead %} {% block content %}
+<h1 class="title">공간등록</h1>
+<form
+  method="POST"
+  action="/blog/create/"
+  action="{% url 'create' %}"
+  enctype="multipart/form-data"
+  class="inputs">
+  {% csrf_token %}
+  <div class="container">
+    <table>
+      <tr>
+        <td>
+          <label for="name">이름 *</label>
+        </td>
+        <td>
+          <input type="text" id="name" name="name" />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="location">위치 *</label>
+        </td>
+        <td>
+          <select name="location" id="location">
+            {% for location in locations %}
+            <option value="{{ location.0 }}">{{ location.1 }}</option>
+            {% endfor %}
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="images">사진</label>
+        </td>
+        <td>
+          <input type="file" id="images" class="image" name="images" multiple />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="availableTime">사용시간 *</label>
+        </td>
+        <td>
+          <input
+            type="text"
+            id="availableTime"
+            name="availableTime"
+            placeholder="예시: 오전 9:00부터 오후 5:00시까지" />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="how_to_use">사용방법 *</label>
+        </td>
+        <td>
+          <input
+            type="text"
+            id="how_to_use"
+            name="how_to_use"
+            placeholder="예시: 법학대학 학생만 사용가능, 학생증 지참" />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="specification">추가 특징</label>
+        </td>
+        <td>
+          <textarea
+            id="specification"
+            name="specification"
+            rows="5"
+            placeholder="예시: 콘센트 있음, 빈백 있음"></textarea>
+        </td>
+      </tr>
+    </table>
+    <input type="submit" value="등록하기" class="submit" />
+    <input type="hidden" id="error_message" value="{{ error }}" />
+  </div>
+</form>
+<script
+  type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="text/javascript" src="{% static 'js/new.js' %}"></script>
+{% endblock content %}
