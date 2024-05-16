@@ -35,6 +35,23 @@ Django Framework를 사용한 국민대 휴게시설 안내 서비스
 - 전체 게시글 확인
 - 게시글 호버 이펙트
 
+# 🚀 설치 및 실행 방법
+1. **프로젝트 클론**  
+```bash  
+git clone https://github.com/Alex-SH-Ahn/KMUbreakroom  
+cd KMUbreakroom  
+```  
+2. **가상 환경 실행 및 패키지 설치**  
+``` bash  
+source venv/Scripts/activate # (Mac : source venv/bin/activate)  
+cd breakroom  
+```  
+3. **마이그레이션 및 서버 실행**  
+``` bash  
+python manage.py migrate  
+python manage.py runserver  
+```  
+
 # 📁 프로젝트 구조
 KMUbreakroom <br>
 ├── breakroom/ <br>
