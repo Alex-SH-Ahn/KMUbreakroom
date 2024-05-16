@@ -36,15 +36,15 @@ Django Framework를 사용한 국민대 휴게시설 안내 서비스
 - 게시글 호버 이펙트
 
 # 📁 프로젝트 구조
-KMUbreakroom
+KMUbreakroom <br>
 ├── breakroom/ <br>
 │ ├── breakroom/ <br>
 │ ├── media/ <br>
 │ ├── static/ <br>
 │ ├── posts/ <br>
 │ ├── user/ <br>
-│ ├── db.sqlite3
-│ ├── manage.py
+│ ├── db.sqlite3 <br>
+│ ├── manage.py <br>
 └── venv/ <br>
 
 ## ✉ 문의
