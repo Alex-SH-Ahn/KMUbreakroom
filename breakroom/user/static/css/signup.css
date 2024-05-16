@@ -40,3 +40,29 @@
 table tr {
   margin: 10px;
 }
+@media (max-width: 600px) {
+  label {
+    display: inline-block;
+    width: 24vw;
+    margin: 0;
+    font-size: 1rem;
+  }
+  .inputs input {
+    display: inline-block;
+    width: 50vw;
+    height: 27px;
+    font-size: 1rem;
+  }
+  body {
+    margin: 0;
+  }
+  .signup {
+    top: 30%;
+    left: 50%;
+  }
+  #submitButton {
+    width: 30vw;
+    height: 30px;
+    font-size: 1rem;
+  }
+}

@@ -1,9 +1,9 @@
-from django.urls import path, include
-from .views import *
+from django.urls import path#, include
+from .views import signup, login, logout#, auth_receiver
 
 urlpatterns = [
     path('signup/', signup, name='signup'),
     path('login/', login, name='login'),
     path('logout/', logout, name='logout'),
-    path('accounts/', include('allauth.urls')), #? 추가됨
+    # path('auth-receiver/', auth_receiver, name='auth_receiver'), #? 추가됨
 ]

@@ -2,8 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %} {% endblock title %}</title>
     {% load static %}
     <link rel="icon" href="{% static 'img/MapPin.svg'%}">
@@ -15,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&family=Sriracha&display=swap" rel="stylesheet">
     <style>
-      body, .locations, .search input[placeholder="건물명으로 검색하세요"] {
+      body, .locations, .search input[placeholder="건물명으로 검색하세요"], button, input[type="submit"] {
         font-family: "Gowun Batang", serif;
         font-style: normal;
       }
@@ -170,34 +169,41 @@
     </div>
     {% block content %} {% endblock content %}
     <script>
-      let searchInput = document.getElementById('search-input');
-      searchInput.addEventListener('focus', () => {
-        searchInput.placeholder = '';
+      document.addEventListener('DOMContentLoaded', (event) => {
+        let searchInput = document.getElementById('search-input');
+        searchInput.addEventListener('focus', () => {
+          searchInput.placeholder = '';
+        });
+        searchInput.addEventListener('blur', () => {
+          searchInput.placeholder = '건물명으로 검색하세요';
+        });
+    
+        let logoName = document.getElementById('logo-name');
+        let selection = document.getElementById('selection');
+        let newPlaceAuth = document.getElementById('new-place-auth');
+        let newPlaceNotAuth = document.getElementById('new-place-not-auth');
+    
+        window.onresize = () => {
+          console.log(window.innerWidth)
+          if (window.innerWidth < 600) {
+            console.log('working? if < 600')
+            if (logoName) logoName.innerText = "";
+            selection.innerText = "건물명";
+            if (newPlaceAuth) newPlaceAuth.innerText = "장소 추가";
+            // 로그인 되어있지 않으면 elemnet가 null을 반환하므로 typeError가 발생함
+            if (newPlaceNotAuth) newPlaceNotAuth.innerText = "장소 추가";
+          } else {
+            console.log('working? else')
+            if (logoName) logoName.innerText = "국민대 휴게시설 모아보기";
+            selection.innerText = "건물 별로 보기";
+            if (newPlaceAuth) newPlaceAuth.innerText = "새로운 장소 추가하기";
+            if (newPlaceNotAuth) newPlaceNotAuth.innerText = "새로운 장소 추가하기";
+          }
+        };
+    
+        // 브라우저 로드때 이벤트 발생
+        window.dispatchEvent(new Event('resize'));
       });
-      searchInput.addEventListener('blur', () => {
-        searchInput.placeholder = '건물명으로 검색하세요';
-      });
-      let logoName = document.getElementById('logo-name');
-      let selection = document.getElementById('selection');
-      let newPlaceAuth = document.getElementById('new-place-auth');
-      let newPlaceNotAuth = document.getElementById('new-place-not-auth');
-      window.addEventListener('resize', () => {
-        if (window.innerWidth < 600) {
-          if (logoName) logoName.innerText = "";
-          selection.innerText = "건물명";
-          if (newPlaceAuth) newPlaceAuth.innerText = "장소 추가";
-          // 로그인 되어있지 않으면 elemnet가 null을 반환하므로 typeError가 발생함
-          if (newPlaceNotAuth) newPlaceNotAuth.innerText = "장소 추가";
-        } else {
-          if (logoName) logoName.innerText = "국민대 휴게시설 모아보기";
-          selection.innerText = "건물 별로 보기";
-          if (newPlaceAuth) newPlaceAuth.innerText = "새로운 장소 추가하기";
-          if (newPlaceNotAuth) newPlaceNotAuth.innerText = "새로운 장소 추가하기";
-        }
-      });
-
-      window.dispatchEvent(new Event('resize'));
-      // 페이지가 로드할 때 resize 이벤트를 발생시켜서 초기화
     </script>
   </body>
 </html>

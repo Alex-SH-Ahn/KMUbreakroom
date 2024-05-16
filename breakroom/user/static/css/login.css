@@ -6,6 +6,9 @@ main {
   text-align: center;
   font-size: 1.2rem;
 }
+.signup-p {
+  margin-top: 10px;
+}
 .signup {
   text-decoration: underline;
   color: black;
@@ -23,7 +26,10 @@ main {
 }
 .submit {
   margin-top: 15px;
-  font-size: 1.5rem;
-  width: 100px;
-  height: 40px;
+  font-size: 1.2rem;
+  width: 80px;
+  height: 35px;
+}
+.google-login-button {
+  margin-top: 10px;
 }

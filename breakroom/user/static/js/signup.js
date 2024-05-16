@@ -15,22 +15,16 @@ nickname_ph.addEventListener("blur", () => {
 });
 
 document.querySelector(".inputs").addEventListener("submit", function (e) {
+  e.preventDefault(); // 확인 버튼을 누르지 않았는데 submit 되는 것을 막음
   let error_message = document.getElementById("error_message").value;
-  if (error_message) {
-    Swal.fire({
-      title: "회원가입 실패!",
-      icon: "error",
-      confirmButtonText: "확인",
-    });
-  } else {
-    Swal.fire({
-      title: "회원가입 성공!",
-      icon: "success",
-      confirmButtonText: "확인",
-    }).then((willRedirect) => {
-      if (willRedirect) {
-        window.location.href = "/"; // 메인페이지로
-      }
-    });
-  }
+  console.log("Error message:", error_message);
+  Swal.fire({
+    title: "회원가입 성공!",
+    icon: "success",
+    confirmButtonText: "확인",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      e.target.submit(); // 확인 버튼을 누르면 submit 실행
+    }
+  });
 });

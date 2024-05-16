@@ -7,7 +7,7 @@
     {% csrf_token %}
     <table>
       <tr>
-        <td>
+        <td class="td-label">
           <label for="username">아이디 *</label>
         </td>
         <td>
@@ -15,7 +15,7 @@
         </td>
       </tr>
       <tr>
-        <td>
+        <td class="td-label">
           <label for="password1">비밀번호 *</label>
         </td>
         <td>
@@ -23,7 +23,7 @@
         </td>
       </tr>
       <tr>
-        <td>
+        <td class="td-label">
           <label for="password2">비밀번호 확인 *</label>
         </td>
         <td>
@@ -31,7 +31,7 @@
         </td>
       </tr>
       <tr>
-        <td>
+        <td class="td-label">
           <label for="nickname">닉네임 *</label>
         </td>
         <td>
@@ -44,7 +44,7 @@
         </td>
       </tr>
       <tr>
-        <td>
+        <td class="td-label">
           <label for="email">이메일 *</label>
         </td>
         <td>
@@ -57,7 +57,7 @@
         </td>
       </tr>
       <tr>
-        <td>
+        <td class="td-label">
           <label for="student-number">학번</label>
         </td>
         <td>
@@ -65,7 +65,7 @@
         </td>
       </tr>
       <tr>
-        <td>
+        <td class="td-label">
           <label for="major">학과</label>
         </td>
         <td>
@@ -74,17 +74,15 @@
       </tr>
     </table>
     <p class="info">*표시는 필수입니다.</p>
-    {% comment %} {% if error == "The 'username' attribute must be
-    set" or error == "The 'user' attribute must be set" or error == "The
-    'password1' attribute must be set" or error == "username must be a string,
-    not NoneType" or error == "The 'password2' attribute must be set" %}
-    <p style="color: red" class="e">비밀번호나 아이디를 입력해주세요.</p>
-    {% endif %} {% endcomment %}
-    <input type="submit" class="btn btn-primary" value="회원가입하기" />
-    <input type="hidden" id="error_message" value="{{ error }}">
+    <input
+      type="submit"
+      class="btn btn-primary"
+      id="submitButton"
+      value="회원가입하기" />
+    <input type="hidden" id="error_message" value="{{ error }}" />
   </form>
-  {% if error_message == "UNIQUE constraint failed: auth_user.username" %}
-  <p style="color: red" class="e">{{error_message}}</p>
+  {% if error == "UNIQUE constraint failed: auth_user.username" %}
+  <p style="color: red" class="e">{{error}}</p>
   {% endif %}
 </div>
 <script

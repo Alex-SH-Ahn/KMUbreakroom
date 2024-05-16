@@ -1,5 +1,10 @@
 {% extends "base.html" %} {% load static %} {% block title %}로그인{% endblock title %} {% block extrahead %}
 <link rel="stylesheet" href="{% static 'css/login.css' %}" />
+<script
+  type="text/javascript"
+  src="https://accounts.google.com/gsi/client"
+  async></script>
+  <!-- 구글 로그인을 위해 추가됨 -->
 {% endblock extrahead %} {% block content %}
 <main>
   <div class="login">
@@ -33,7 +38,24 @@
       </div>
       <button type="submit" class="submit">로그인</button>
     </form>
-    <p>
+    <div
+      id="g_id_onload"
+      data-client_id="427002656907-mbk9mqbgjb8dkldi6d0vqu82o9upnbm3.apps.googleusercontent.com"
+      data-context="signin"
+      data-ux_mode="popup"
+      data-login_uri="http://localhost:8000/auth-receiver"
+      data-itp_support="true"
+      class="google-login-button"></div>
+
+    <div
+      class="g_id_signin"
+      data-type="standard"
+      data-shape="pill"
+      data-theme="outline"
+      data-text="signin_with"
+      data-size="large"
+      data-logo_alignment="left"></div>
+    <p class="signup-p">
       아직 멤버가 아니신가요?
       <a class="signup" href="{% url 'signup' %}">회원가입하기</a>
     </p>

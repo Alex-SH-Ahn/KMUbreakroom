@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
   placeholderEdit(availableTime, "예시: 오전 9:00부터 오후 5:00시까지");
 
   document.querySelector(".inputs").addEventListener("submit", function (e) {
+    e.preventDefault();
     let error_message = document.getElementById("error_message").value;
     if (error_message) {
       Swal.fire({
@@ -32,9 +33,9 @@ document.addEventListener("DOMContentLoaded", function () {
         title: "공간등록 성공!",
         icon: "success",
         confirmButtonText: "확인",
-      }).then((willRedirect) => {
-        if (willRedirect) {
-          window.location.href = "/"; // 메인페이지로
+      }).then((result) => {
+        if (result.isConfirmed) {
+          e.target.submit(); // Submit the form when the confirm button is clicked
         }
       });
     }
